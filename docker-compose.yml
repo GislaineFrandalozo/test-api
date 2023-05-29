@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  testpitao:
+    image: testpitao
+    container_name: testpitao01
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "-k", "uvicorn.workers.UvicornWorker", "main:app"]
+    volumes:
+      - ./:/app
